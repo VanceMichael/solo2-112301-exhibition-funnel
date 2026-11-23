@@ -1,0 +1,283 @@
+{
+  "title": "场馆声环境统计的并行使用限制与排班",
+  "source_note": "全部机构、事件、人员、规则和数值均为人工构造的本地合成资料。",
+  "contract": "声级 db 以分贝表示，区间统计使用有效秒数加权的声能，转换遵循 10 的 db/10 次幂，校准 offset 直接加到分贝读值。源 source 为单房或以加号连接的实测组合。grade 定义每频带样本有效秒数以及不能用于常态推断的触发式观测。cap 按活动用途和频带取上限。时刻是 UTC+08:00。",
+  "tables": {
+    "rooms": [
+      {
+        "room": "Hall",
+        "barrier": "B1"
+      },
+      {
+        "room": "Studio",
+        "barrier": "B1"
+      },
+      {
+        "room": "Office",
+        "barrier": "B2"
+      }
+    ],
+    "reading": [
+      {
+        "id": "S1",
+        "mic": "M1",
+        "source": "Hall",
+        "receiver": "Studio",
+        "barrier": "B1",
+        "state": "shut",
+        "band": "low",
+        "minute": "2026-10-02T19:00",
+        "seconds": "60",
+        "db": "41",
+        "trigger": "routine"
+      },
+      {
+        "id": "S2",
+        "mic": "M1",
+        "source": "Studio",
+        "receiver": "Studio",
+        "barrier": "B1",
+        "state": "shut",
+        "band": "low",
+        "minute": "2026-10-02T19:02",
+        "seconds": "60",
+        "db": "35",
+        "trigger": "routine"
+      },
+      {
+        "id": "S3",
+        "mic": "M1",
+        "source": "Hall+Studio",
+        "receiver": "Studio",
+        "barrier": "B1",
+        "state": "shut",
+        "band": "low",
+        "minute": "2026-10-02T19:10",
+        "seconds": "84",
+        "db": "46",
+        "trigger": "routine"
+      },
+      {
+        "id": "S4",
+        "mic": "M1",
+        "source": "Hall+Studio",
+        "receiver": "Studio",
+        "barrier": "B1",
+        "state": "open",
+        "band": "low",
+        "minute": "2026-10-02T19:20",
+        "seconds": "31",
+        "db": "58",
+        "trigger": "complaint"
+      },
+      {
+        "id": "S5",
+        "mic": "M1",
+        "source": "Hall+Studio",
+        "receiver": "Studio",
+        "barrier": "B1",
+        "state": "shut",
+        "band": "mid",
+        "minute": "2026-10-02T19:12",
+        "seconds": "75",
+        "db": "32",
+        "trigger": "routine"
+      },
+      {
+        "id": "S6",
+        "mic": "M2",
+        "source": "Studio",
+        "receiver": "Studio",
+        "barrier": "B1",
+        "state": "shut",
+        "band": "low",
+        "minute": "2026-10-03T19:15",
+        "seconds": "0",
+        "db": "~",
+        "trigger": "offline"
+      },
+      {
+        "id": "S7",
+        "mic": "M2",
+        "source": "Studio",
+        "receiver": "Studio",
+        "barrier": "B1",
+        "state": "shut",
+        "band": "mid",
+        "minute": "2026-09-01T19:05",
+        "seconds": "95",
+        "db": "33",
+        "trigger": "routine"
+      },
+      {
+        "id": "S8",
+        "mic": "M2",
+        "source": "Studio",
+        "receiver": "Studio",
+        "barrier": "B1",
+        "state": "shut",
+        "band": "low",
+        "minute": "2026-09-01T19:10",
+        "seconds": "91",
+        "db": "37",
+        "trigger": "routine"
+      }
+    ],
+    "calibration": [
+      {
+        "mic": "M1",
+        "from": "2026-10-01",
+        "to": "2026-10-10",
+        "offset": "-1",
+        "known": "2026-10-01"
+      },
+      {
+        "mic": "M1",
+        "from": "2026-10-01",
+        "to": "2026-10-10",
+        "offset": "3",
+        "known": "2026-10-08"
+      },
+      {
+        "mic": "M2",
+        "from": "2026-09-01",
+        "to": "2026-10-10",
+        "offset": "1",
+        "known": "2026-09-01"
+      }
+    ],
+    "events": [
+      {
+        "id": "E1",
+        "room": "Hall",
+        "use": "concert",
+        "date": "2026-10-10",
+        "earliest": "18:30",
+        "latest": "22:30",
+        "min_length": "105",
+        "notice": "sent"
+      },
+      {
+        "id": "E2",
+        "room": "Studio",
+        "use": "recording",
+        "date": "2026-10-10",
+        "earliest": "18:00",
+        "latest": "21:00",
+        "min_length": "75",
+        "notice": "sent"
+      },
+      {
+        "id": "E3",
+        "room": "Studio",
+        "use": "recording",
+        "date": "2026-10-10",
+        "earliest": "17:00",
+        "latest": "23:00",
+        "min_length": "30",
+        "notice": "pending"
+      },
+      {
+        "id": "E4",
+        "room": "Office",
+        "use": "seminar",
+        "date": "2026-10-10",
+        "earliest": "17:00",
+        "latest": "19:00",
+        "min_length": "45",
+        "notice": "pending"
+      }
+    ],
+    "cap": [
+      {
+        "use": "recording",
+        "band": "low",
+        "db": "47"
+      },
+      {
+        "use": "recording",
+        "band": "mid",
+        "db": "39"
+      },
+      {
+        "use": "concert",
+        "band": "low",
+        "db": "72"
+      },
+      {
+        "use": "concert",
+        "band": "mid",
+        "db": "66"
+      },
+      {
+        "use": "seminar",
+        "band": "low",
+        "db": "57"
+      },
+      {
+        "use": "seminar",
+        "band": "mid",
+        "db": "54"
+      }
+    ],
+    "grade": [
+      {
+        "band": "low",
+        "min_routine_sec": "60"
+      },
+      {
+        "band": "mid",
+        "min_routine_sec": "60"
+      }
+    ],
+    "operations": [
+      {
+        "barrier": "B1",
+        "change_min": "15",
+        "start_state": "shut"
+      },
+      {
+        "barrier": "B2",
+        "change_min": "5",
+        "start_state": "shut"
+      }
+    ],
+    "mix": [
+      {
+        "local_hour": "18",
+        "weight": "0.25"
+      },
+      {
+        "local_hour": "19",
+        "weight": "0.45"
+      },
+      {
+        "local_hour": "20",
+        "weight": "0.3"
+      }
+    ],
+    "prior_commitment": [
+      {
+        "event": "E1",
+        "from": "18:45",
+        "to": "20:30",
+        "barrier_state": "shut"
+      },
+      {
+        "event": "E2",
+        "from": "18:30",
+        "to": "19:45",
+        "barrier_state": "shut"
+      }
+    ],
+    "site_return": [
+      {
+        "event": "E2",
+        "actual_date": "2026-10-03",
+        "actual_from": "18:40",
+        "actual_to": "19:55",
+        "barrier_state": "open"
+      }
+    ]
+  }
+}
